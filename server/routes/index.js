@@ -41,9 +41,10 @@ router.get("/allPosts", async function (req, res, next) {
 router.post("/newImagePost", async function (req, res, next) {
   console.log(req.body);
   const uuid = uuidv4();
+  let fileFormat = path.extname(req.files.file.name);
   var params = {
     Bucket: "lentors3",
-    Key: `imageWall/${uuid}.jpg`,
+    Key: `imageWall/${uuid}${fileFormat}`,
     Body: req.files.file.data,
     ACL: "public-read",
     // Metadata: {
@@ -58,7 +59,7 @@ router.post("/newImagePost", async function (req, res, next) {
       console.log(data);
     }
   });
-  let fileFormat = path.extname(req.files.file.name);
+
   let post;
   if (req.body.postType == "image")
     post = new Post({
