@@ -36,12 +36,13 @@ function SubmitImage(props) {
     formData.append("file", file);
     formData.append("userName", props.user);
     formData.append("message", message);
+    if (props.type == "image") {
+      formData.append("postType", "image");
+    }
+    if (props.type == "video") {
+      formData.append("postType", "video");
+    }
 
-    let data = {
-      userName: props.user,
-      message: message,
-      file: file,
-    };
     axios
       .post(url, formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -81,19 +82,38 @@ function SubmitImage(props) {
           <Box w='xl'>
             <Text>Your Message</Text>
             <Input onChange={onChangeMessage} mb={6} placeholder='' />
-
-            <Text>Select Image</Text>
-            <Input
-              mt={0}
-              mb={6}
-              size='lg'
-              type='file'
-              accept='image/*'
-              required='true'
-              onChange={onChangeFile}
-            />
+            {props.type == "image" && (
+              <>
+                <Text>Select Image</Text>
+                <Input
+                  mt={0}
+                  mb={6}
+                  size='lg'
+                  type='file'
+                  accept='image/*'
+                  required='true'
+                  onChange={onChangeFile}
+                />{" "}
+                <br></br>
+              </>
+            )}
+            {props.type == "video" && (
+              <>
+                <Text>Select Video</Text>
+                <Input
+                  mt={0}
+                  mb={6}
+                  size='lg'
+                  type='file'
+                  accept='video/*'
+                  required='true'
+                  onChange={onChangeFile}
+                />
+              </>
+            )}
             <br></br>
 
+            <br></br>
             <Button
               as={GridItem}
               w='full'

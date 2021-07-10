@@ -61,7 +61,7 @@ router.post("/newImagePost", async function (req, res, next) {
     name: req.body.userName,
     message: req.body.message,
     assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.jpg`,
-    postType: "image",
+    postType: req.body.postType,
   });
   try {
     await post.save();
