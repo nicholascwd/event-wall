@@ -57,12 +57,22 @@ router.post("/newImagePost", async function (req, res, next) {
       console.log(data);
     }
   });
-  const post = new Post({
-    name: req.body.userName,
-    message: req.body.message,
-    assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.jpg`,
-    postType: req.body.postType,
-  });
+  let post;
+  if (req.body.postType == "image") {
+    post = new Post({
+      name: req.body.userName,
+      message: req.body.message,
+      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.jpg`,
+      postType: req.body.postType,
+    });
+  } else {
+    post = new Post({
+      name: req.body.userName,
+      message: req.body.message,
+      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.mp4`,
+      postType: req.body.postType,
+    });
+  }
   try {
     await post.save();
   } catch (e) {

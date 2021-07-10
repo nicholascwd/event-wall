@@ -86,13 +86,11 @@ function ImageWall() {
                   alt='avatar'
                 />
               )}
-
-              {/* <video muted controls autoPlay playsInline loop width='250'>
-                <source
-                  src='https://lentors3.sgp1.cdn.digitaloceanspaces.com/imageWall/027588b5f7704997a2b2ff2b2d99f9fe.MOV'
-                  type='video/webm'
-                />
-              </video> */}
+              {i.postType == "video" && (
+                <video muted playsInline autoPlay controls loop width='250'>
+                  <source src={i.assetURL} type='video/webm' />
+                </video>
+              )}
 
               <Box py={5} textAlign='center'>
                 <Text
