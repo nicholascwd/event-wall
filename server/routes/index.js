@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
+var path = require("path");
 require("dotenv").config();
 router.use(cors());
 const fileUpload = require("express-fileupload");
@@ -57,22 +58,16 @@ router.post("/newImagePost", async function (req, res, next) {
       console.log(data);
     }
   });
+  let fileFormat = path.extname(req.files.file.name);
   let post;
-  if (req.body.postType == "image") {
+  if (req.body.postType == "image")
     post = new Post({
       name: req.body.userName,
       message: req.body.message,
-      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.jpg`,
+      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
       postType: req.body.postType,
     });
-  } else {
-    post = new Post({
-      name: req.body.userName,
-      message: req.body.message,
-      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}.mp4`,
-      postType: req.body.postType,
-    });
-  }
+
   try {
     await post.save();
   } catch (e) {
