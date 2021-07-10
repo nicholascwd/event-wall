@@ -44,7 +44,7 @@ router.post("/newImagePost", async function (req, res, next) {
   let fileFormat = path.extname(req.files.file.name);
   var params = {
     Bucket: "lentors3",
-    Key: `imageWall/${uuid}${fileFormat}`,
+    Key: `imageWall/${uuid}.${fileFormat}`,
     Body: req.files.file.data,
     ACL: "public-read",
     // Metadata: {
