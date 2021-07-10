@@ -42,9 +42,10 @@ router.post("/newImagePost", async function (req, res, next) {
   console.log(req.body);
   const uuid = uuidv4();
   let fileFormat = path.extname(req.files.file.name);
+  console.log(`imageWall/${uuid}${fileFormat}`);
   var params = {
     Bucket: "lentors3",
-    Key: `imageWall/${uuid}.${fileFormat}`,
+    Key: `imageWall/${uuid}${fileFormat}`,
     Body: req.files.file.data,
     ACL: "public-read",
     // Metadata: {
@@ -60,14 +61,12 @@ router.post("/newImagePost", async function (req, res, next) {
     }
   });
 
-  let post;
-  if (req.body.postType == "image")
-    post = new Post({
-      name: req.body.userName,
-      message: req.body.message,
-      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
-      postType: req.body.postType,
-    });
+  let post = new Post({
+    name: req.body.userName,
+    message: req.body.message,
+    assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
+    postType: req.body.postType,
+  });
 
   try {
     await post.save();

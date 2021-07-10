@@ -32,6 +32,7 @@ function SubmitImage(props) {
   }
   function submitPost() {
     let url = "https://eventwall.cloud1.nicholascheow.com/newImagePost";
+    // let url = "http://localhost:4000/newImagePost";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("userName", props.user);
