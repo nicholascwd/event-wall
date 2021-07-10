@@ -59,7 +59,7 @@ function ImageWall() {
 
   useEffect(() => {
     axios
-      .get("https://imagewalldev.cloud1.nicholascheow.com/allPosts")
+      .get("https://imagewall.cloud1.nicholascheow.com/allPosts")
       .then(function (response) {
         // handle success
         console.log(response);
