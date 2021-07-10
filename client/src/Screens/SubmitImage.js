@@ -31,7 +31,7 @@ function SubmitImage(props) {
     console.log(e.target.files[0]);
   }
   function submitPost() {
-    let url = "https://imagewalldev.cloud1.nicholascheow.com/newImagePost";
+    let url = "https://eventwall.cloud1.nicholascheow.com/newImagePost";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("userName", props.user);
