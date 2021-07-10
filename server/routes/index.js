@@ -55,24 +55,30 @@ router.post("/newImagePost", async function (req, res, next) {
     //           }
   };
 
-  s3.putObject(params, function (err, data) {
-    if (err) {
-      console.log(err, err.stack);
-    } else {
-      let post = new Post({
-        name: req.body.userName,
-        message: req.body.message,
-        assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
-        postType: req.body.postType,
-      });
-
-      try {
-        await post.save();
-      } catch (e) {
-        console.log(e);
+  let s3upload = s3
+    .putObject(params, function (err, data) {
+      if (err) {
+        console.log(err, err.stack);
+      } else {
+        console.log(data);
       }
-      res.sendStatus(200);
+    })
+    .promise();
+
+  s3upload.then(async function () {
+    let post = new Post({
+      name: req.body.userName,
+      message: req.body.message,
+      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
+      postType: req.body.postType,
+    });
+
+    try {
+      await post.save();
+    } catch (e) {
+      console.log(e);
     }
+    res.sendStatus(200);
   });
 });
 
