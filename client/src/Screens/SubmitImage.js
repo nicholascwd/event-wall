@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import {
   Box,
@@ -18,12 +19,42 @@ import {
 } from "@chakra-ui/react";
 
 function SubmitImage(props) {
-  const [username, setUsername] = useState();
+  const [file, setFile] = useState();
+  const [message, setMessage] = useState();
 
-  function onChange(e) {}
-  function setUser() {}
+  function onChangeMessage(e) {
+    setMessage(e.target.value);
+  }
+  function onChangeFile(e) {
+    setFile(e.target.files[0]);
+    console.log(file);
+    console.log(e.target.files[0]);
+  }
+  function submitPost() {
+    let url = "https://imagewalldev.cloud1.nicholascheow.com/newImagePost";
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("userName", props.user);
+    formData.append("message", message);
+
+    let data = {
+      userName: props.user,
+      message: message,
+      file: file,
+    };
+    axios
+      .post(url, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+
+    console.log(props.user);
+  }
   return (
     <Box px={4} py={32} mx='auto'>
+      Message: {message}
       <Box
         w={{ base: "full", md: 11 / 12, xl: 8 / 12 }}
         textAlign={{ base: "left", md: "center" }}
@@ -49,7 +80,7 @@ function SubmitImage(props) {
         <Center>
           <Box w='xl'>
             <Text>Your Message</Text>
-            <Input mb={6} placeholder='' />
+            <Input onChange={onChangeMessage} mb={6} placeholder='' />
 
             <Text>Select Image</Text>
             <Input
@@ -58,9 +89,8 @@ function SubmitImage(props) {
               size='lg'
               type='file'
               accept='image/*'
-              placeholder='Enter your username...'
               required='true'
-              onChange={onChange}
+              onChange={onChangeFile}
             />
             <br></br>
 
@@ -72,7 +102,7 @@ function SubmitImage(props) {
               size='lg'
               type='submit'
               colorScheme='teal'
-              onClick={setUser}
+              onClick={submitPost}
             >
               Submit
             </Button>

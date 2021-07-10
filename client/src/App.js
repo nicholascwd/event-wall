@@ -28,7 +28,6 @@ function App() {
   const storedUser = localStorage.getItem("username");
 
   useEffect(() => {
-    console.log("once");
     setUser(storedUser);
   }, [updateState]);
 
@@ -43,6 +42,7 @@ function App() {
         <Box>
           {submitImage && (
             <SubmitImage
+              user={user}
               value={() => {
                 setSubmitImage(false);
               }}
