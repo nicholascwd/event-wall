@@ -8,7 +8,7 @@
                         "ENV TZ=Asia/Singapore",
                         "RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone",
                         "RUN npm install && npm cache clean --force",
-                        "RUN cd server",
+                        WORKDIR "/server",
                         "COPY ./ /usr/src/app",
                         "ENV NODE_ENV production",
                         "ENV PORT 80",
