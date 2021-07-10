@@ -59,23 +59,21 @@ router.post("/newImagePost", async function (req, res, next) {
     if (err) {
       console.log(err, err.stack);
     } else {
-      console.log(data);
+      let post = new Post({
+        name: req.body.userName,
+        message: req.body.message,
+        assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
+        postType: req.body.postType,
+      });
+
+      try {
+        await post.save();
+      } catch (e) {
+        console.log(e);
+      }
+      res.sendStatus(200);
     }
   });
-
-  let post = new Post({
-    name: req.body.userName,
-    message: req.body.message,
-    assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
-    postType: req.body.postType,
-  });
-
-  try {
-    await post.save();
-  } catch (e) {
-    console.log(e);
-  }
-  res.sendStatus(200);
 });
 
 module.exports = router;
