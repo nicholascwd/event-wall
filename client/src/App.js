@@ -71,7 +71,7 @@ function App() {
               </Box>
               <Header />
               <Center m={10}>
-                <Stack spacing={4} direction='row' align='center'>
+                <Stack spacing={4} align='center'>
                   <Button
                     colorScheme='teal'
                     size='md'

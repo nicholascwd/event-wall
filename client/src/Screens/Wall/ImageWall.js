@@ -12,13 +12,23 @@ import {
   Video,
   SimpleGrid,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
   Tag,
   Button,
   Heading,
+  useDisclosure,
   useColorModeValue,
 } from "@chakra-ui/react";
 const axios = require("axios");
 function ImageWall() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { currentURL, setCurrentURL } = useState();
   const [imageWallData, setImageWallData] = useState([
     {
       id: 1,
@@ -80,15 +90,22 @@ function ImageWall() {
               {i.postType == "image" && (
                 <Image
                   w='full'
-                  h={56}
+                  h={500}
                   fit='contain'
                   src={i.assetURL}
                   alt='avatar'
                 />
               )}
               {i.postType == "video" && (
-                <video muted playsInline autoPlay controls loop width='250'>
-                  <source src={i.assetURL} type='video/webm' />
+                <video
+                  autoPlay
+                  muted
+                  playsInline
+                  controls='true'
+                  loop
+                  width='250'
+                >
+                  <source src={i.assetURL} type='video/mp4' />
                 </video>
               )}
 

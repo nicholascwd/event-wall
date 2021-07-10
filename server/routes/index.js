@@ -34,7 +34,9 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/allPosts", async function (req, res, next) {
-  let allPosts = await Post.find({});
+  let allPosts = await Post.find({}).sort({
+    creationDate: -1,
+  });
   res.send(allPosts);
 });
 
