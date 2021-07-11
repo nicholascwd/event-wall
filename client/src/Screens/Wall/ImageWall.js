@@ -105,7 +105,7 @@ function ImageWall() {
                   loop
                   width='250'
                 >
-                  <source src={i.cdnURL} type='video/mp4' />
+                  <source src={i.assetURL} type='video/mp4' />
                 </video>
               )}
 
