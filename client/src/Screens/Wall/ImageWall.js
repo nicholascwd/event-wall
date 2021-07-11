@@ -92,7 +92,7 @@ function ImageWall() {
                   w='full'
                   h={500}
                   fit='contain'
-                  src={i.assetURL}
+                  src={i.cdnURL}
                   alt='avatar'
                 />
               )}

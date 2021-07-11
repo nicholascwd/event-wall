@@ -12,6 +12,9 @@ const PostSchema = mongoose.Schema({
   assetURL: {
     type: String,
   },
+  cdnURL: {
+    type: String,
+  },
   message: {
     type: String,
   },
