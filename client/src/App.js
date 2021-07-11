@@ -48,6 +48,7 @@ function App() {
               value={() => {
                 setSubmitImage(false);
               }}
+              back={setSubmitImage}
             />
           )}
 

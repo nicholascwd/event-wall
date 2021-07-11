@@ -21,6 +21,7 @@ import {
 function SubmitImage(props) {
   const [file, setFile] = useState();
   const [message, setMessage] = useState();
+  const [submitButton, setSubmitButton] = useState("Submit");
 
   function onChangeMessage(e) {
     setMessage(e.target.value);
@@ -31,6 +32,7 @@ function SubmitImage(props) {
     console.log(e.target.files[0]);
   }
   function submitPost() {
+    setSubmitButton("Uploading...");
     let url = "https://eventwall.cloud1.nicholascheow.com/newImagePost";
     // let url = "http://localhost:4000/newImagePost";
     const formData = new FormData();
@@ -50,6 +52,7 @@ function SubmitImage(props) {
       })
       .then((res) => {
         console.log(res);
+        props.value("");
       });
 
     console.log(props.user);
@@ -125,7 +128,7 @@ function SubmitImage(props) {
               colorScheme='teal'
               onClick={submitPost}
             >
-              Submit
+              {submitButton}
             </Button>
             <Button
               as={GridItem}
