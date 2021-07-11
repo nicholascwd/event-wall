@@ -12,7 +12,7 @@ const Post = require("../models/Post");
 
 const AWS = require("aws-sdk");
 
-const spacesEndpoint = new AWS.Endpoint("sgp1.digitaloceanspaces.com/");
+const spacesEndpoint = new AWS.Endpoint(process.env.S3_ENDPOINT);
 const s3 = new AWS.S3({
   endpoint: spacesEndpoint,
   accessKeyId: process.env.SPACES_KEY,
@@ -30,7 +30,7 @@ mongoose
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.sendStatus(200);
 });
 
 router.get("/allPosts", async function (req, res, next) {
@@ -46,13 +46,10 @@ router.post("/newImagePost", async function (req, res, next) {
   let fileFormat = path.extname(req.files.file.name);
   console.log(`imageWall/${uuid}${fileFormat}`);
   var params = {
-    Bucket: "lentors3",
+    Bucket: process.env.S3_BUCKET,
     Key: `imageWall/${uuid}${fileFormat}`,
     Body: req.files.file.data,
     ACL: "public-read",
-    // Metadata: {
-    //             "x-amz-meta-my-key": "your-value"
-    //           }
   };
 
   let s3upload = s3
@@ -69,8 +66,8 @@ router.post("/newImagePost", async function (req, res, next) {
     let post = new Post({
       name: req.body.userName,
       message: req.body.message,
-      assetURL: `https://lentors3.sgp1.digitaloceanspaces.com/imageWall/${uuid}${fileFormat}`,
-      cdnURL: `https://imagewallcdn.lentorhealth.workers.dev/${uuid}${fileFormat}`,
+      assetURL: `https://${process.env.S3_BUCKET}.${process.env.S3_ENDPOINT}imageWall/${uuid}${fileFormat}`,
+      cdnURL: `https://${process.env.CDN_ENDPOINT}/${uuid}${fileFormat}`,
       postType: req.body.postType,
     });
 
