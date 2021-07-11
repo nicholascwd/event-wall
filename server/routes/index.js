@@ -28,22 +28,6 @@ mongoose
   })
   .then(() => console.log("DB Connected"));
 
-const apiTimeout = 360 * 1000;
-router.use((req, res, next) => {
-  // Set the timeout for all HTTP requests
-  req.setTimeout(apiTimeout, () => {
-    let err = new Error("Request Timeout");
-    err.status = 408;
-    next(err);
-  });
-  // Set the server response timeout for all HTTP requests
-  res.setTimeout(apiTimeout, () => {
-    let err = new Error("Service Unavailable");
-    err.status = 503;
-    next(err);
-  });
-});
-
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
