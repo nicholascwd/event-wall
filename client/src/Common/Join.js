@@ -49,7 +49,7 @@ function Join(props) {
           color='gray.500'
           lineHeight='base'
         >
-          Key in your username below to join in.
+          Key in your name below to join in.
         </Text>
         <SimpleGrid
           as='form'
@@ -66,7 +66,7 @@ function Join(props) {
               mt={0}
               size='lg'
               type='text'
-              placeholder='Enter your username...'
+              placeholder='Enter your name...'
               required='true'
               onChange={onChange}
             />

@@ -11,6 +11,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import ImageWall from "./ImageWall";
+import MessageWall from "./MessageWall";
 import React, { useState } from "react";
 function Wall() {
   const [firstTab, setFirstTab] = useState(true);
@@ -35,6 +36,7 @@ function Wall() {
         </TabList>
 
         {firstTab && <ImageWall />}
+        {!firstTab && <MessageWall />}
       </Tabs>
     </Box>
   );

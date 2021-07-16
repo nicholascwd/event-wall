@@ -25,6 +25,7 @@ function App() {
   const [updateState, setUpdateState] = useState();
   const [submitImage, setSubmitImage] = useState(false);
   const [submitVideo, setSubmitVideo] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(false);
 
   const storedUser = localStorage.getItem("username");
 
@@ -59,10 +60,22 @@ function App() {
               value={() => {
                 setSubmitVideo(false);
               }}
+              back={setSubmitImage}
             />
           )}
 
-          {!submitImage && !submitVideo && (
+          {submitMessage && (
+            <SubmitImage
+              user={user}
+              type='message'
+              value={() => {
+                setSubmitMessage(false);
+              }}
+              back={setSubmitImage}
+            />
+          )}
+
+          {!submitImage && !submitVideo && !submitMessage && (
             <>
               <Box m={8} textAlign='right'>
                 <Text>Welcome, {user}</Text>
@@ -91,7 +104,13 @@ function App() {
                   >
                     Submit Video
                   </Button>
-                  <Button colorScheme='teal' size='md'>
+                  <Button
+                    colorScheme='teal'
+                    size='md'
+                    onClick={() => {
+                      setSubmitMessage(true);
+                    }}
+                  >
                     Submit Message
                   </Button>
                 </Stack>

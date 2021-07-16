@@ -50,38 +50,16 @@ function ImageWall() {
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {imageWallData.map((i) => {
           console.log(i);
-          if (i.postType != "message") {
+          if (i.postType == "message") {
             return (
               <Box
-                p={10}
                 w='xxs'
+                p={10}
                 shadow='lg'
                 rounded='lg'
                 overflow='hidden'
                 mx='auto'
               >
-                {i.postType == "image" && (
-                  <Image
-                    w='full'
-                    h={500}
-                    fit='contain'
-                    src={i.cdnURL}
-                    alt='avatar'
-                  />
-                )}
-                {i.postType == "video" && (
-                  <video
-                    autoPlay
-                    muted
-                    playsInline
-                    controls='true'
-                    loop
-                    width='250'
-                  >
-                    <source src={i.assetURL} type='video/mp4' />
-                  </video>
-                )}
-
                 <Box py={5} textAlign='center'>
                   <Text
                     display='block'

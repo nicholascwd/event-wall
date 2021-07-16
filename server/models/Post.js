@@ -15,6 +15,9 @@ const PostSchema = mongoose.Schema({
   cdnURL: {
     type: String,
   },
+  likes: {
+    type: [String],
+  },
   message: {
     type: String,
   },

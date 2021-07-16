@@ -43,8 +43,26 @@ router.get("/allPosts", async function (req, res, next) {
 router.post("/newImagePost", async function (req, res, next) {
   console.log(req.body);
   const uuid = uuidv4();
+
+  if (req.body.postType == "message") {
+    let post = new Post({
+      name: req.body.userName,
+      message: req.body.message,
+      postType: req.body.postType,
+    });
+
+    try {
+      await post.save();
+    } catch (e) {
+      console.log(e);
+    }
+    res.sendStatus(200);
+    return;
+  }
+
   let fileFormat = path.extname(req.files.file.name);
   console.log(`imageWall/${uuid}${fileFormat}`);
+
   var params = {
     Bucket: process.env.S3_BUCKET,
     Key: `imageWall/${uuid}${fileFormat}`,

@@ -32,6 +32,11 @@ function SubmitImage(props) {
     console.log(e.target.files[0]);
   }
   function submitPost() {
+    if (!message) {
+      alert("Please type a message!");
+      return;
+    }
+
     setSubmitButton("Uploading...");
     let url = "https://eventwall.cloud1.nicholascheow.com/newImagePost";
     // let url = "http://localhost:4000/newImagePost";
@@ -40,10 +45,24 @@ function SubmitImage(props) {
     formData.append("userName", props.user);
     formData.append("message", message);
     if (props.type == "image") {
+      if (!file) {
+        console.log("no file");
+        alert("Please select a file!");
+        return;
+      }
       formData.append("postType", "image");
     }
     if (props.type == "video") {
+      if (!file) {
+        console.log("no file");
+        alert("Please select a file!");
+        return;
+      }
       formData.append("postType", "video");
+    }
+
+    if (props.type == "message") {
+      formData.append("postType", "message");
     }
 
     axios
@@ -59,7 +78,6 @@ function SubmitImage(props) {
   }
   return (
     <Box px={4} py={32} mx='auto'>
-      Message: {message}
       <Box
         w={{ base: "full", md: 11 / 12, xl: 8 / 12 }}
         textAlign={{ base: "left", md: "center" }}
@@ -72,7 +90,7 @@ function SubmitImage(props) {
           color={useColorModeValue("gray.900", "gray.100")}
           lineHeight='shorter'
         >
-          Upload Image
+          Upload {props.type}
         </Heading>
         <Text
           mb={6}
