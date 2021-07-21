@@ -96,9 +96,9 @@ function ImageWall() {
                   </Text>
                   {/* <Tag m={3}>{i.likes.length} Likes</Tag> */}
                   <br></br>
-                  <Button m={3} colorScheme='teal' variant='outline'>
+                  {/* <Button m={3} colorScheme='teal' variant='outline'>
                     Like 👍
-                  </Button>
+                  </Button> */}
                 </Box>
               </Box>
             );
