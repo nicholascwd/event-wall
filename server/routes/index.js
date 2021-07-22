@@ -98,4 +98,17 @@ router.post("/newImagePost", async function (req, res, next) {
   });
 });
 
+router.post("/newLike", async function (req, res, next) {
+  console.log(req.body);
+  let post = await Post.findOne({ _id: req.body._id });
+  console.log(post);
+  post.likes.push(req.body.user);
+
+  await Post.updateOne(
+    { _id: req.body._id },
+    { $push: { likes: req.body.user } }
+  );
+  res.sendStatus(200);
+});
+
 module.exports = router;
