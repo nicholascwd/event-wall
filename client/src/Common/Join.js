@@ -24,6 +24,10 @@ function Join(props) {
     setUsername(e.target.value);
   }
   function setUser() {
+    if (!username) {
+      alert("Please type in a name");
+      return;
+    }
     localStorage.setItem("username", username);
     props.value("a");
   }
