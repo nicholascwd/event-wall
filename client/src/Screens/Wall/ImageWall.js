@@ -61,6 +61,7 @@ function ImageWall() {
       .then(function (response) {
         // handle success
         console.log(response);
+        getPosts();
       })
       .catch(function (error) {
         // handle error
@@ -142,7 +143,6 @@ function ImageWall() {
                         variant='outline'
                         onClick={() => {
                           likePost(i._id);
-                          getPosts();
                         }}
                       >
                         Like 👍
